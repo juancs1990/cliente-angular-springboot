@@ -1,0 +1,64 @@
+<h1 class="mt-4">Serviço Prestado</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active"> Listagem</li>
+</ol>
+<div class="container-fluid">
+    <form #form="ngForm"  (submit)="onSubmit()">
+        <div class="row">
+
+            <div  class="alert-salvar alert alert-success col-md-12" role="alert" *ngIf="sucess">    
+    
+                <b>Dados salvos com sucesso</b> 
+               </div>
+               <div class="alert alert-danger col-md-12" role="alert" *ngFor="let erro of erros">
+                <b>{{erro}}</b> 
+               </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Cliente: </label>
+                    <select class="form-control"  
+                    [(ngModel)]="servicoPrestado.idCliente"
+                    [ngModelOptions]="{standalone: true}"
+                    >
+                        <option value="">Selecione...</option>
+                        <option *ngFor="let cliente of clientes" [ngValue]="cliente.id">
+                            {{cliente.nome}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <input class="form-control"  required   type="text" [(ngModel)]="servicoPrestado.descricao" name="descricao" id="inputDescricao">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Data</label>
+                    <input class="form-control" required (ngModelChange)="validarData($event)" type="date" [(ngModel)]="servicoPrestado.data" name="data" id="inputData">
+                </div>
+            </div> 
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Valor</label>
+                    <input class="form-control"  required  type="text" [(ngModel)]="servicoPrestado.preco" name="preco" id="inputPreco">
+                </div>
+            </div>
+        </div>
+         <div class="row">
+             <div class="col-md-3">
+                 <button class="btn btn-success mr-1"  type="submit" [disabled]="!dataValida || !form.valid" >
+                     <i class="fa fa-save"></i>
+                     Salvar</button>
+                     <a type="button" class="btn btn-primary"  routerLink="/servico-prestado-listagem">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </a>
+             </div> 
+         </div>
+    </form>
+</div>
